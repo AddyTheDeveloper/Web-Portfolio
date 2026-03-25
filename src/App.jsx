@@ -39,6 +39,15 @@ function App() {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   };
 
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e;
+    const x = (clientX / window.innerWidth) * 100;
+    const y = (clientY / window.innerHeight) * 100;
+    
+    document.documentElement.style.setProperty('--mouse-x', `${x}%`);
+    document.documentElement.style.setProperty('--mouse-y', `${y}%`);
+  };
+
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -47,7 +56,11 @@ function App() {
   });
 
   return (
-    <div className={`App ${theme}-mode`} style={{ position: 'relative', overflowX: 'hidden' }}>
+    <div 
+      className={`App ${theme}-mode`} 
+      onMouseMove={handleMouseMove}
+      style={{ position: 'relative', overflowX: 'hidden' }}
+    >
       <AnimatePresence>
         {isLoading && <LoadingScreen />}
       </AnimatePresence>

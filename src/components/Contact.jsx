@@ -225,13 +225,15 @@ const Contact = () => {
             </motion.button>
             
             {/* Social Links Row */}
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '20px' }}>
-              {[
-                { icon: <Github size={22} />, href: "https://github.com/AddyTheDeveloper", label: "GitHub" },
-                { icon: <Linkedin size={22} />, href: "https://www.linkedin.com/in/adityahans17", label: "LinkedIn" },
-                { icon: <Instagram size={22} />, href: "https://www.instagram.com/addythedeveloper", label: "Instagram" },
-                { icon: <Mail size={22} />, href: "mailto:adityahans.17@gmail.com", label: "Email" }
-              ].map((social, i) => (
+            <div style={{ marginTop: '40px', textAlign: 'center' }}>
+              <p style={{ color: 'var(--text-muted)', fontSize: '14px', marginBottom: '15px', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase' }}>Connect with me</p>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
+                {[
+                  { icon: <Github size={22} />, href: "https://github.com/AddyTheDeveloper", label: "GitHub" },
+                  { icon: <Linkedin size={22} />, href: "https://www.linkedin.com/in/adityahans17", label: "LinkedIn" },
+                  { icon: <Instagram size={22} />, href: "https://www.instagram.com/addythedeveloper", label: "Instagram" },
+                  { icon: <Mail size={22} />, href: "mailto:adityahans.17@gmail.com", label: "Email" }
+                ].map((social, i) => (
                 <motion.a
                   key={i}
                   href={social.href}
@@ -256,6 +258,7 @@ const Contact = () => {
                   {social.icon}
                 </motion.a>
               ))}
+              </div>
             </div>
             
             <AnimatePresence>
