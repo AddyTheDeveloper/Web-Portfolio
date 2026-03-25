@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Brain, Users, Briefcase, Zap, Code2, Globe, Database, Cpu, Terminal } from 'lucide-react';
 
-const SkillCard = ({ category }) => {
+const SkillCard = ({ category, horizontal = false }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -57,7 +57,7 @@ const SkillCard = ({ category }) => {
           </div>
         </div>
 
-        <div className="skill-items-grid">
+        <div className={`skill-items-grid ${horizontal ? 'horizontal' : ''}`}>
           {category.skills.map((skill, idx) => (
             <motion.div
               key={skill.name}
@@ -147,16 +147,20 @@ const Skills = () => {
         >
           <Terminal size={14} /> <span>SYSTEM_CAPABILITIES</span>
         </motion.div>
-        <h2 className="section-title">Technical <span className="gradient-text">Arsenal</span></h2>
+        <h2 className="section-title">Technical <span className="gradient-text">Skills</span></h2>
         <p className="section-subtitle">
-          Strategic distribution of core engine competencies and advanced architectural expertise.
+          Comprehensive mastery of core technologies and architectural patterns for building scalable, high-performance digital solutions.
         </p>
       </div>
 
       <div className="skills-grid">
-        {skillCategories.map((category) => (
+        {skillCategories.slice(0, 3).map((category) => (
           <SkillCard key={category.title} category={category} />
         ))}
+      </div>
+
+      <div className="soft-skills-container" style={{ marginTop: '30px' }}>
+        <SkillCard category={skillCategories[3]} horizontal={true} />
       </div>
 
       <style>{`
@@ -306,6 +310,26 @@ const Skills = () => {
           display: flex;
           flex-direction: column;
           gap: 12px;
+        }
+
+        .skill-items-grid.horizontal {
+          flex-direction: row;
+          flex-wrap: wrap;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 20px;
+        }
+
+        @media (max-width: 1100px) {
+          .skill-items-grid.horizontal {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 600px) {
+          .skill-items-grid.horizontal {
+            grid-template-columns: 1fr;
+          }
         }
 
         .skill-chip {
