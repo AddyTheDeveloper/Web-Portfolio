@@ -91,22 +91,22 @@ const About = () => {
             style={{ textAlign: 'center', width: '100%' }}
           >
             <motion.div style={{ 
-              width: 'clamp(260px, 80vw, 300px)', 
-              height: 'clamp(260px, 80vw, 300px)', 
+              width: 'fit-content',
+              maxWidth: 'clamp(260px, 80vw, 300px)', 
               borderRadius: '24px', 
               margin: '0 auto',
               background: 'linear-gradient(135deg, var(--primary), var(--secondary))',
-              padding: '6px',
+              padding: '2px',
               position: 'relative',
               rotateX: imageRotateX,
               rotateY: imageRotateY,
               transformStyle: 'preserve-3d',
-              boxShadow: '0 20px 50px rgba(0,0,0,0.3)'
+              boxShadow: '0 20px 50px rgba(0,0,0,0.3)',
+              display: 'inline-block'
             }}>
               <div style={{ 
-                width: '100%', 
-                height: '100%', 
-                borderRadius: '18px', 
+                width: '100%',
+                borderRadius: '22px', 
                 backgroundColor: 'var(--bg-card)',
                 display: 'flex',
                 alignItems: 'center',
@@ -117,7 +117,7 @@ const About = () => {
                 <img 
                   src="/src/assets/profile/profile.png" 
                   alt="Aditya Hans" 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'scale(1.1)' }}
+                  style={{ width: '100%', height: 'auto', display: 'block' }}
                   onError={(e) => {
                     e.target.style.display = 'none';
                     e.target.parentNode.innerHTML = '<span style="color: var(--text-muted)">[Image]</span>';
@@ -128,7 +128,7 @@ const About = () => {
                 <motion.div 
                   animate={{ top: ['0%', '100%', '0%'] }}
                   transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', left: 0, right: 0, height: '4px', background: 'var(--primary)', boxShadow: '0 0 15px var(--primary)', opacity: 0.6, zIndex: 2 }}
+                  style={{ position: 'absolute', left: 0, right: 0, height: '2px', background: 'var(--primary)', boxShadow: '0 0 10px var(--primary)', opacity: 0.6, zIndex: 2 }}
                 />
 
                 {/* 2. Scanning Vignette */}
