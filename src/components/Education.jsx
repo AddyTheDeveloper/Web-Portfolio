@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { GraduationCap, Award, Calendar, ExternalLink } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { GraduationCap, Award, Calendar, ExternalLink, X, Eye } from 'lucide-react';
 
 const Education = () => {
   const education = [
@@ -30,23 +30,23 @@ const Education = () => {
     { title: "Computational Theory", issuer: "Infosys Springboard", date: "Aug 2025" },
     { title: "Hardware & OS", issuer: "IBM – Coursera", date: "Sep 2024" },
     { title: "Data Structures & Algorithms", issuer: "C++ Specialization", date: "Aug 2024" },
-    { title: "Object Oriented Programming", issuer: "Infosys Springboard", date: "Jul 2024" },
-    { title: "Javascript Intermediate", issuer: "HackerRank", date: "Jun 2024" },
-    { title: "Network Communication", issuer: "Coursera", date: "May 2024" },
-    { title: "TCP/IP Protocols", issuer: "IBM / Coursera", date: "Apr 2024" },
-    { title: "Java Programming", issuer: "SoloLearn", date: "Mar 2024" }
+    { title: "Object Oriented Programming", issuer: "Infosys Springboard", date: "Jul 2024" }
   ];
+
+  const [selectedCert, setSelectedCert] = useState(null);
 
   const achievements = [
     {
       title: "Adobe India Hackathon",
       desc: "Cleared MCQ and Coding rounds focused on DSA (Jun 2025).",
-      icon: <Award size={24} />
+      icon: <Award size={24} />,
+      image: "/achievements/adobe-certificate.jpg"
     },
     {
       title: "GDG Hackathon",
       desc: "Secured Top 5 ranking with efficient software design (Mar 2024).",
-      icon: <Award size={24} />
+      icon: <Award size={24} />,
+      image: "/achievements/hackathon-certificate.png"
     }
   ];
 
@@ -185,30 +185,137 @@ const Education = () => {
             <motion.div 
               key={item.title} 
               variants={itemVariants}
-              whileHover={{ y: -10, scale: 1.05 }}
+              whileHover={{ y: -10, scale: 1.02 }}
               className="glass"
-              style={{ padding: '30px', borderRadius: '24px', textAlign: 'center' }}
+              style={{ borderRadius: '24px', textAlign: 'center', cursor: 'pointer', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', height: '100%' }}
+              onClick={() => setSelectedCert(item)}
             >
-              <div style={{ 
-                width: '60px', 
-                height: '60px', 
-                background: 'var(--primary-glow)', 
-                borderRadius: '50%', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center', 
-                color: 'var(--primary)',
-                margin: '0 auto 20px',
-                border: '1px solid var(--border-glass)'
-              }}>
-                {item.icon}
+              {/* Certificate Preview Thumbnail */}
+              <div style={{ width: '100%', height: '160px', overflow: 'hidden', position: 'relative', borderBottom: '1px solid var(--border-glass)' }}>
+                <img 
+                  src={item.image} 
+                  alt={item.title} 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.8)' }} 
+                />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--bg-dark) 0%, transparent 100%)', opacity: 0.4 }} />
+                
+                <div style={{ 
+                  position: 'absolute', 
+                  top: '10px', 
+                  right: '10px', 
+                  background: 'rgba(0,0,0,0.5)', 
+                  backdropFilter: 'blur(5px)',
+                  borderRadius: '50%', 
+                  width: '32px', 
+                  height: '32px', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  color: 'white',
+                  border: '1px solid rgba(255,255,255,0.1)'
+                }}>
+                  <Eye size={16} />
+                </div>
               </div>
-              <h4 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '10px' }}>{item.title}</h4>
-              <p style={{ color: 'var(--text-muted)', lineHeight: 1.6 }}>{item.desc}</p>
+
+              <div style={{ padding: '25px', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ 
+                  width: '50px', 
+                  height: '50px', 
+                  background: 'var(--primary-glow)', 
+                  borderRadius: '12px', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  color: 'var(--primary)',
+                  marginTop: '-50px',
+                  marginBottom: '15px',
+                  border: '1px solid var(--border-glass)',
+                  position: 'relative',
+                  boxShadow: '0 10px 20px rgba(0,0,0,0.2)'
+                }}>
+                  {item.icon}
+                </div>
+                <h4 style={{ fontSize: '18px', fontWeight: 800, marginBottom: '8px' }}>{item.title}</h4>
+                <p style={{ color: 'var(--text-muted)', fontSize: '14px', lineHeight: 1.6, marginBottom: '20px' }}>{item.desc}</p>
+                <div style={{ marginTop: 'auto', fontSize: '12px', fontWeight: 700, color: 'var(--primary)', letterSpacing: '1px', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Eye size={14} /> Full View
+                </div>
+              </div>
             </motion.div>
           ))}
         </motion.div>
       </div>
+
+      {/* Certificate Modal */}
+      <AnimatePresence>
+        {selectedCert && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 9999,
+              background: 'rgba(0, 0, 0, 0.95)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '20px',
+              backdropFilter: 'blur(10px)'
+            }}
+            onClick={() => setSelectedCert(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              style={{ position: 'relative', maxWidth: '100%', maxHeight: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setSelectedCert(null)}
+                style={{
+                  position: 'absolute',
+                  top: '-50px',
+                  right: '0',
+                  background: 'var(--glass-bg)',
+                  border: '1px solid var(--border-glass)',
+                  borderRadius: '50%',
+                  width: '40px',
+                  height: '40px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'white',
+                  cursor: 'pointer',
+                  zIndex: 10
+                }}
+              >
+                <X size={24} />
+              </button>
+              
+              <img
+                src={selectedCert.image}
+                alt={selectedCert.title}
+                style={{
+                  maxWidth: '90vw',
+                  maxHeight: '80vh',
+                  borderRadius: '12px',
+                  boxShadow: '0 0 50px rgba(99, 102, 241, 0.3)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)'
+                }}
+              />
+              
+              <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                <h3 style={{ fontSize: '24px', fontWeight: 800, color: 'white' }}>{selectedCert.title}</h3>
+                <p style={{ color: 'var(--primary)', fontWeight: 600 }}>Official Verification Artifact</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       
       <style>{`
         @media (max-width: 768px) {
