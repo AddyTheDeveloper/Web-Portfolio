@@ -1,12 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import Github from 'lucide-react/dist/esm/icons/github';
 
 const Projects = () => {
-  const [showAll, setShowAll] = useState(false);
-  const projectsTopRef = useRef(null);
-
   const projects = [
     {
       title: "TargetQuiz",
@@ -57,20 +54,9 @@ const Projects = () => {
     }
   ];
 
-  const INITIAL_COUNT = 3;
-  const visibleProjects = showAll ? projects : projects.slice(0, INITIAL_COUNT);
-
-  const handleToggle = () => {
-    if (showAll) {
-      // About to show less, scroll back to top of projects
-      projectsTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    setShowAll(!showAll);
-  };
-
   return (
     <section id="projects" className="section-container">
-      <div ref={projectsTopRef} style={{ textAlign: 'center', marginBottom: '60px', scrollMarginTop: '100px' }}>
+      <div style={{ textAlign: 'center', marginBottom: '60px', scrollMarginTop: '100px' }}>
         <h2 style={{ fontSize: '36px', marginBottom: '10px' }}><span className="gradient-text">Featured</span> Projects</h2>
         <p style={{ color: 'var(--text-muted)' }}>A collection of projects that showcase my obsession with performance and design.</p>
       </div>
@@ -99,7 +85,7 @@ const Projects = () => {
         `}</style>
         
         <AnimatePresence mode="popLayout">
-          {visibleProjects.map((project, index) => (
+          {projects.map((project, index) => (
             <motion.div
               key={project.title}
               layout
@@ -195,33 +181,6 @@ const Projects = () => {
           ))}
         </AnimatePresence>
       </motion.div>
-
-      {/* View More / Show Less Button */}
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '60px' }}>
-        <motion.button
-          onClick={handleToggle}
-          whileHover={{ scale: 1.05, boxShadow: '0 0 30px var(--primary-glow)' }}
-          whileTap={{ scale: 0.95 }}
-          className="glow-btn"
-          style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: '10px', 
-            padding: '16px 32px', 
-            fontSize: '16px', 
-            fontWeight: 800,
-            background: 'var(--glass-bg)',
-            border: '2px solid var(--border-glass)',
-            color: 'var(--text-main)'
-          }}
-        >
-          {showAll ? (
-            <>Show Less <ChevronUp size={20} /></>
-          ) : (
-            <>View All Projects <ChevronDown size={20} /></>
-          )}
-        </motion.button>
-      </div>
     </section>
   );
 };
