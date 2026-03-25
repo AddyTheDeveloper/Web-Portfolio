@@ -95,6 +95,7 @@ const Projects = () => {
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
               exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+              onClick={() => window.open(project.live || project.github, '_blank')}
               whileHover={{ 
                 y: -10,
                 rotateX: 2,
@@ -111,7 +112,8 @@ const Projects = () => {
                 overflow: 'hidden', 
                 display: 'flex', 
                 flexDirection: 'column',
-                perspective: '1000px'
+                perspective: '1000px',
+                cursor: 'pointer'
               }}
             >
               <div style={{ 
@@ -149,11 +151,27 @@ const Projects = () => {
                 </div>
                 
                 <div style={{ display: 'flex', gap: '20px' }}>
-                  <a href={project.github} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', fontWeight: 700, color: 'var(--text-main)', transition: 'color 0.3s ease' }} onMouseOver={(e) => e.target.style.color = 'var(--primary)'} onMouseOut={(e) => e.target.style.color = 'var(--text-main)'}>
+                  <a 
+                    href={project.github} 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    onClick={(e) => e.stopPropagation()}
+                    style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', fontWeight: 700, color: 'var(--text-main)', transition: 'color 0.3s ease' }} 
+                    onMouseOver={(e) => e.target.style.color = 'var(--primary)'} 
+                    onMouseOut={(e) => e.target.style.color = 'var(--text-main)'}
+                  >
                     <Github size={18} /> Source
                   </a>
                   {project.live && (
-                    <a href={project.live} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', fontWeight: 700, color: 'var(--accent)', transition: 'all 0.3s ease' }} onMouseOver={(e) => e.target.style.filter = 'brightness(1.2)'} onMouseOut={(e) => e.target.style.filter = 'none'}>
+                    <a 
+                      href={project.live} 
+                      target="_blank" 
+                      rel="noreferrer" 
+                      onClick={(e) => e.stopPropagation()}
+                      style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', fontWeight: 700, color: 'var(--accent)', transition: 'all 0.3s ease' }} 
+                      onMouseOver={(e) => e.target.style.filter = 'brightness(1.2)'} 
+                      onMouseOut={(e) => e.target.style.filter = 'none'}
+                    >
                       <ExternalLink size={18} /> Live Demo
                     </a>
                   )}

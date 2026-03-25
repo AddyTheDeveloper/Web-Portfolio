@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, MapPin, Mail, Phone, CheckCircle } from 'lucide-react';
+import Github from 'lucide-react/dist/esm/icons/github';
+import Linkedin from 'lucide-react/dist/esm/icons/linkedin';
+import Instagram from 'lucide-react/dist/esm/icons/instagram';
 
 const Contact = () => {
   const [status, setStatus] = useState("");
@@ -220,6 +223,40 @@ const Contact = () => {
               ) : status === "success" ? "Message Dispatched!" : "Ignite Conversation"}
               {status === "success" ? <CheckCircle size={22} /> : status !== "sending" && <Send size={22} />}
             </motion.button>
+            
+            {/* Social Links Row */}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '20px' }}>
+              {[
+                { icon: <Github size={22} />, href: "https://github.com/AddyTheDeveloper", label: "GitHub" },
+                { icon: <Linkedin size={22} />, href: "https://www.linkedin.com/in/adityahans17", label: "LinkedIn" },
+                { icon: <Instagram size={22} />, href: "https://www.instagram.com/addythedeveloper", label: "Instagram" },
+                { icon: <Mail size={22} />, href: "mailto:adityahans.17@gmail.com", label: "Email" }
+              ].map((social, i) => (
+                <motion.a
+                  key={i}
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  whileHover={{ y: -5, scale: 1.1, background: 'var(--glass-bg)', borderColor: 'var(--primary)' }}
+                  whileTap={{ scale: 0.9 }}
+                  style={{ 
+                    width: '50px', 
+                    height: '50px', 
+                    borderRadius: '12px', 
+                    background: 'var(--bg-card)', 
+                    border: '1px solid var(--border-glass)', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    color: 'var(--text-main)',
+                    transition: 'all 0.3s ease'
+                  }}
+                  title={social.label}
+                >
+                  {social.icon}
+                </motion.a>
+              ))}
+            </div>
             
             <AnimatePresence>
               {status === "error" && (
