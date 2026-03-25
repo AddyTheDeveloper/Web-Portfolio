@@ -78,6 +78,18 @@ const Projects = () => {
       <motion.div 
         layout
         className="projects-grid" 
+        variants={{
+          hidden: { opacity: 0 },
+          show: {
+            opacity: 1,
+            transition: {
+              staggerChildren: 0.1
+            }
+          }
+        }}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
         style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '30px' }}
       >
         <style>{`
@@ -91,9 +103,15 @@ const Projects = () => {
             <motion.div
               key={project.title}
               layout
-              initial={{ opacity: 0, scale: 0.9, y: 30 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true }}
+              variants={{
+                hidden: { opacity: 0, y: 30, scale: 0.9 },
+                show: { 
+                  opacity: 1, 
+                  y: 0, 
+                  scale: 1,
+                  transition: { type: "spring", stiffness: 100, damping: 15 }
+                }
+              }}
               exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
               onClick={() => window.open(project.live || project.github, '_blank')}
               whileHover={{ 
@@ -101,10 +119,6 @@ const Projects = () => {
                 rotateX: 2,
                 rotateY: -2,
                 transition: { duration: 0.3 }
-              }}
-              transition={{ 
-                duration: 0.5,
-                delay: index * 0.1
               }}
               className="glass"
               style={{ 

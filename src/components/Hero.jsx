@@ -76,17 +76,43 @@ const Hero = () => {
           
           <h1 style={{ fontSize: 'clamp(3.5rem, 12vw, 6.5rem)', marginTop: '0px', lineHeight: 1.1, fontWeight: 900, letterSpacing: '-2px' }}>
             <motion.span 
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ 
-                duration: 0.8, 
-                delay: 0.7,
-                type: "spring",
-                stiffness: 100
-              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.1 }}
               style={{ display: 'block' }}
             >
-              I'm <span className="gradient-text">Aditya Hans</span>
+              {"I'm ".split("").map((char, index) => (
+                <motion.span
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    delay: 0.5 + index * 0.05, 
+                    duration: 0.8,
+                    type: "spring"
+                  }}
+                  style={{ display: 'inline-block' }}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </motion.span>
+              ))}
+              <span className="gradient-text">
+                {"Aditya Hans".split("").map((char, index) => (
+                  <motion.span
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.5, y: 30 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ 
+                      delay: 0.8 + index * 0.05, 
+                      duration: 0.8,
+                      type: "spring"
+                    }}
+                    style={{ display: 'inline-block' }}
+                  >
+                    {char === " " ? "\u00A0" : char}
+                  </motion.span>
+                ))}
+              </span>
             </motion.span>
           </h1>
           

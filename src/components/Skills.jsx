@@ -153,15 +153,49 @@ const Skills = () => {
         </p>
       </div>
 
-      <div className="skills-grid">
+      <motion.div 
+        className="skills-grid"
+        variants={{
+          hidden: { opacity: 0 },
+          show: {
+            opacity: 1,
+            transition: {
+              staggerChildren: 0.15
+            }
+          }
+        }}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+      >
         {skillCategories.slice(0, 3).map((category) => (
-          <SkillCard key={category.title} category={category} />
+          <motion.div
+            key={category.title}
+            variants={{
+              hidden: { opacity: 0, y: 30, scale: 0.9 },
+              show: { 
+                opacity: 1, 
+                y: 0, 
+                scale: 1,
+                transition: { type: "spring", stiffness: 100, damping: 15 }
+              }
+            }}
+          >
+            <SkillCard category={category} />
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
-      <div className="soft-skills-container" style={{ marginTop: '30px' }}>
+      <motion.div 
+        className="soft-skills-container" 
+        style={{ marginTop: '30px' }}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
+      >
         <SkillCard category={skillCategories[3]} horizontal={true} />
-      </div>
+      </motion.div>
 
       <style>{`
         .section-header {
