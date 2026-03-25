@@ -127,9 +127,10 @@ const Education = () => {
         </h3>
         
         <motion.div 
+          className="certs-grid"
           style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', 
+            gridTemplateColumns: 'repeat(3, 1fr)', 
             gap: '20px' 
           }}
           initial="hidden"
@@ -318,6 +319,15 @@ const Education = () => {
       </AnimatePresence>
       
       <style>{`
+        .certs-grid {
+          grid-template-columns: repeat(3, 1fr) !important;
+        }
+        @media (max-width: 991px) {
+          .certs-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 600px) {
+          .certs-grid { grid-template-columns: 1fr !important; }
+        }
         @media (max-width: 768px) {
           .timeline { padding-left: 20px !important; }
           .timeline > div:nth-child(1) { left: -5px !important; }
