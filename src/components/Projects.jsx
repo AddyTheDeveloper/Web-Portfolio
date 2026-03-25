@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import Github from 'lucide-react/dist/esm/icons/github';
 
-const Projects = () => {
+const Projects = ({ isMobile }) => {
   const projects = [
     {
       title: "TargetQuiz",
@@ -100,7 +100,7 @@ const Projects = () => {
               }}
               exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
               onClick={() => window.open(project.live || project.github, '_blank')}
-              whileHover={{ 
+              whileHover={isMobile ? { y: -5 } : { 
                 y: -10,
                 rotateX: 2,
                 rotateY: -2,

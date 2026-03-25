@@ -5,7 +5,7 @@ import Github from 'lucide-react/dist/esm/icons/github';
 import Linkedin from 'lucide-react/dist/esm/icons/linkedin';
 import Instagram from 'lucide-react/dist/esm/icons/instagram';
 
-const Contact = () => {
+const Contact = ({ isMobile }) => {
   const [status, setStatus] = useState("");
 
   const handleSubmit = async (e) => {
@@ -172,7 +172,7 @@ const Contact = () => {
           }}
           transition={{ duration: 0.8 }}
           className="glass contact-form-card"
-          style={{ padding: '40px', borderRadius: '30px' }}
+          style={{ padding: isMobile ? '20px' : '40px', borderRadius: isMobile ? '20px' : '30px' }}
         >
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>
             <input type="hidden" name="subject" value="New Portfolio Message from {{name}}" />

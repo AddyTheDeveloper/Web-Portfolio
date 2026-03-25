@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
-const BackgroundParticles = () => {
+const BackgroundParticles = ({ isMobile }) => {
   // Mouse position tracking
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -11,6 +11,7 @@ const BackgroundParticles = () => {
   const smoothY = useSpring(mouseY, { stiffness: 50, damping: 20 });
 
   useEffect(() => {
+    if (isMobile) return;
     const handleMouseMove = (e) => {
       // Normalize mouse position (-1 to 1)
       const x = (e.clientX / window.innerWidth) * 2 - 1;
@@ -21,7 +22,7 @@ const BackgroundParticles = () => {
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, isMobile]);
 
   // Skill icons used in the background
   const skillIcons = [
@@ -37,33 +38,33 @@ const BackgroundParticles = () => {
 
   // Generate random particles
   const particles = useMemo(() => 
-    Array.from({ length: 80 }).map((_, i) => ({
+    Array.from({ length: isMobile ? 20 : 80 }).map((_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      size: Math.random() * 5 + 2,
+      size: Math.random() * (isMobile ? 3 : 5) + 2,
       duration: Math.random() * 15 + 15,
       delay: Math.random() * 10,
-      factor: Math.random() * 40 + 20, // Increased parallax
-      opacity: Math.random() * 0.4 + 0.4, // Brighter
-      blur: Math.random() * 2 // Cinematic blur
-    })), []);
+      factor: Math.random() * 40 + 20,
+      opacity: Math.random() * 0.3 + 0.3,
+      blur: Math.random() * 2
+    })), [isMobile]);
 
   // Generate random floating icons
   const floatingIcons = useMemo(() => 
-    Array.from({ length: 20 }).map((_, i) => ({
+    Array.from({ length: isMobile ? 5 : 20 }).map((_, i) => ({
       id: i,
       icon: skillIcons[i % skillIcons.length],
       x: Math.random() * 100,
       y: Math.random() * 100,
-      size: Math.random() * 40 + 20,
+      size: Math.random() * (isMobile ? 25 : 40) + 20,
       duration: Math.random() * 25 + 25,
       delay: Math.random() * 10,
       rotate: Math.random() * 360,
-      factor: Math.random() * 60 + 40, // Stronger parallax
-      opacity: Math.random() * 0.2 + 0.2, // More visible
-      blur: Math.random() * 3 // Layer depth blur
-    })), []);
+      factor: Math.random() * 60 + 40,
+      opacity: Math.random() * 0.15 + 0.15,
+      blur: Math.random() * 3
+    })), [isMobile, skillIcons]);
 
   return (
     <div style={{

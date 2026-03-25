@@ -5,7 +5,7 @@ import Github from 'lucide-react/dist/esm/icons/github';
 import Linkedin from 'lucide-react/dist/esm/icons/linkedin';
 import Instagram from 'lucide-react/dist/esm/icons/instagram';
 
-const Navbar = ({ theme, toggleTheme }) => {
+const Navbar = ({ theme, toggleTheme, isMobile }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -43,14 +43,14 @@ const Navbar = ({ theme, toggleTheme }) => {
       top: '20px',
       left: '50%',
       transform: 'translateX(-50%)',
-      width: '90%',
+      width: isMobile ? '95%' : '90%',
       maxWidth: '1200px',
       height: '64px',
       zIndex: 1000,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      padding: '0 30px',
+      padding: isMobile ? '0 15px' : '0 30px',
       borderRadius: '32px',
       background: scrolled ? 'var(--bg-card)' : 'transparent',
       backdropFilter: scrolled ? 'blur(16px)' : 'none',

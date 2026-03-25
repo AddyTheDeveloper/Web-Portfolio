@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GraduationCap, Award, Calendar, ExternalLink, X, Eye } from 'lucide-react';
 
-const Education = () => {
+const Education = ({ isMobile }) => {
   const education = [
     {
       degree: "Bachelor of Technology",
@@ -81,15 +81,15 @@ const Education = () => {
   ];
 
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: isMobile ? 1 : 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.1 }
+      transition: { staggerChildren: isMobile ? 0 : 0.1 }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.9 },
+    hidden: { opacity: isMobile ? 1 : 0, y: isMobile ? 0 : 30, scale: isMobile ? 1 : 0.9 },
     visible: { 
       opacity: 1, 
       y: 0, 
@@ -116,7 +116,7 @@ const Education = () => {
         <motion.div 
           className="timeline" 
           style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', paddingLeft: '30px' }}
-          initial="hidden"
+          initial={isMobile ? "visible" : "hidden"}
           whileInView="visible"
           viewport={{ once: true }}
           variants={containerVariants}
@@ -129,10 +129,10 @@ const Education = () => {
                 key={item.degree} 
                 variants={itemVariants} 
                 style={{ position: 'relative' }}
-                initial="hidden"
+                initial={isMobile ? "visible" : "hidden"}
                 whileInView="visible"
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.2 }}
+                transition={{ delay: isMobile ? 0 : idx * 0.2 }}
               >
                 <div className="timeline-dot" style={{ position: 'absolute', left: '-39px', top: '5px', width: '18px', height: '18px', borderRadius: '50%', background: 'var(--bg-dark)', border: '3px solid var(--primary)', boxShadow: '0 0 10px var(--primary-glow)', zIndex: 2 }} />
                 <div className="glass" style={{ padding: '30px', borderRadius: '24px' }}>

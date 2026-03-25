@@ -20,18 +20,25 @@ function App() {
     return 'dark';
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
     
-    // Initial loading timer
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2000);
 
     return () => {
       clearTimeout(timer);
+      window.removeEventListener('resize', checkMobile);
     };
   }, [theme]);
 
@@ -40,6 +47,7 @@ function App() {
   };
 
   const handleMouseMove = (e) => {
+    if (isMobile) return;
     const { clientX, clientY } = e;
     const x = (clientX / window.innerWidth) * 100;
     const y = (clientY / window.innerHeight) * 100;
@@ -65,10 +73,28 @@ function App() {
         {isLoading && <LoadingScreen />}
       </AnimatePresence>
 
+      {!isMobile && <CustomCursor />}
+      <BackgroundParticles />
+      
+      {/* Dynamic Background Mesh - Disabled on mobile for performance */}
+      {!isMobile && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100vh',
+          background: `radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--primary-glow) 0%, transparent 50%)`,
+          opacity: theme === 'dark' ? 0.15 : 0.08,
+          pointerEvents: 'none',
+          zIndex: 0
+        }} />
+      )}
+      
+      {/* Scroll Progress Bar - Only one instance */}
       <motion.div
         className="scroll-progress"
         style={{
-          scaleX,
           position: 'fixed',
           top: 0,
           left: 0,
@@ -77,90 +103,48 @@ function App() {
           background: 'var(--primary-gradient)',
           transformOrigin: '0%',
           zIndex: 2000,
+          scaleX,
           boxShadow: '0 0 15px var(--primary-glow)'
         }}
       />
 
-      <CustomCursor />
-      <BackgroundParticles />
-      
-      {/* Dynamic Background Mesh */}
-      <div style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100vh',
-        background: `radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--primary-glow) 0%, transparent 50%)`,
-        opacity: theme === 'dark' ? 0.15 : 0.08,
-        pointerEvents: 'none',
-        zIndex: 0
-      }} />
-      
-      {/* Scroll Progress Bar */}
-      <motion.div
-        className="scroll-progress"
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '4px',
-          background: 'var(--primary)',
-          transformOrigin: '0%',
-          zIndex: 1001,
-          scaleX
-        }}
-      />
       {/* Background Glows */}
       <div style={{ 
         position: 'fixed', 
         top: '10%', 
         left: '5%', 
-        width: '400px', 
-        height: '400px', 
+        width: isMobile ? '200px' : '400px', 
+        height: isMobile ? '200px' : '400px', 
         background: 'var(--primary)', 
-        filter: 'blur(150px)', 
-        opacity: 0.1,
-        zIndex: -1,
-        pointerEvents: 'none'
-      }}></div>
-      <div style={{ 
-        position: 'fixed', 
-        bottom: '10%', 
-        right: '5%', 
-        width: '500px', 
-        height: '500px', 
-        background: 'var(--secondary)', 
-        filter: 'blur(180px)', 
-        opacity: 0.08,
+        filter: 'blur(100px)', 
+        opacity: 0.05,
         zIndex: -1,
         pointerEvents: 'none'
       }}></div>
 
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <Navbar theme={theme} toggleTheme={toggleTheme} isMobile={isMobile} />
       
       <main>
-        <SectionWrapper><Hero /></SectionWrapper>
-        <SectionWrapper><About /></SectionWrapper>
-        <SectionWrapper><Skills /></SectionWrapper>
-        <SectionWrapper><Projects /></SectionWrapper>
-        <SectionWrapper><Education /></SectionWrapper>
-        <SectionWrapper><Contact /></SectionWrapper>
+        <SectionWrapper isMobile={isMobile}><Hero isMobile={isMobile} /></SectionWrapper>
+        <SectionWrapper isMobile={isMobile}><About isMobile={isMobile} /></SectionWrapper>
+        <SectionWrapper isMobile={isMobile}><Skills isMobile={isMobile} /></SectionWrapper>
+        <SectionWrapper isMobile={isMobile}><Projects isMobile={isMobile} /></SectionWrapper>
+        <SectionWrapper isMobile={isMobile}><Education isMobile={isMobile} /></SectionWrapper>
+        <SectionWrapper isMobile={isMobile}><Contact isMobile={isMobile} /></SectionWrapper>
       </main>
       <Footer />
     </div>
   );
 }
 
-const SectionWrapper = ({ children }) => (
+const SectionWrapper = ({ children, isMobile }) => (
   <motion.div
-    initial={{ opacity: 0, y: 40, scale: 0.95 }}
-    whileInView={{ opacity: 1, y: 0, scale: 1 }}
-    viewport={{ once: true, margin: "-100px" }}
+    initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 40, scale: 0.95 }}
+    whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: 0, scale: 1 }}
+    viewport={{ once: true, margin: isMobile ? "0px" : "-100px" }}
     transition={{ 
-      duration: 0.8, 
-      ease: [0.16, 1, 0.3, 1] // Custom cubic-bezier for premium feel
+      duration: isMobile ? 0.1 : 0.8, 
+      ease: [0.16, 1, 0.3, 1]
     }}
   >
     {children}

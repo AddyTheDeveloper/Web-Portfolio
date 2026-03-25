@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
-const About = () => {
+const About = ({ isMobile }) => {
   // Mouse tracking for localized parallax
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -9,6 +9,7 @@ const About = () => {
   const smoothY = useSpring(mouseY, { stiffness: 50, damping: 20 });
 
   const handleMouseMove = (e) => {
+    if (isMobile) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -62,8 +63,8 @@ const About = () => {
           top: '50%', 
           left: '50%', 
           transform: 'translate(-50%, -50%)',
-          width: '400px', 
-          height: '400px', 
+          width: isMobile ? '300px' : '400px', 
+          height: isMobile ? '300px' : '400px', 
           background: 'var(--primary)', 
           filter: 'blur(150px)', 
           opacity: 0.08,

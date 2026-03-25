@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Brain, Users, Briefcase, Zap, Code2, Globe, Database, Cpu, Terminal } from 'lucide-react';
 
-const SkillCard = ({ category, horizontal = false }) => {
+const SkillCard = ({ category, horizontal = false, isMobile }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -13,6 +13,7 @@ const SkillCard = ({ category, horizontal = false }) => {
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
 
   const handleMouseMove = (e) => {
+    if (isMobile) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
@@ -31,7 +32,7 @@ const SkillCard = ({ category, horizontal = false }) => {
 
   return (
     <motion.div
-      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+      style={isMobile ? {} : { rotateX, rotateY, transformStyle: "preserve-3d" }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className="category-card-wrapper"
@@ -43,7 +44,7 @@ const SkillCard = ({ category, horizontal = false }) => {
         <div className="corner-bracket bottom-left"></div>
         <div className="corner-bracket bottom-right"></div>
 
-        {/* Scanning Line */}
+        {/* Scanning Line - Hide on mobile if requested or keep if subtle */}
         <div className="scan-line"></div>
 
         <div className="card-header">
@@ -62,10 +63,10 @@ const SkillCard = ({ category, horizontal = false }) => {
             <motion.div
               key={skill.name}
               className="skill-chip"
-              initial={{ opacity: 0, x: -10 }}
+              initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: idx * 0.05 }}
-              whileHover={{ scale: 1.05, x: 5 }}
+              transition={{ delay: isMobile ? 0 : idx * 0.05 }}
+              whileHover={isMobile ? {} : { scale: 1.05, x: 5 }}
             >
               <div className="skill-icon-wrapper">
                 {typeof skill.icon === 'string' ? (
@@ -88,7 +89,7 @@ const SkillCard = ({ category, horizontal = false }) => {
   );
 };
 
-const Skills = () => {
+const Skills = ({ isMobile }) => {
   const skillCategories = [
     {
       title: "Languages",
@@ -140,7 +141,7 @@ const Skills = () => {
     <section id="skills" className="section-container">
       <div className="section-header">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={isMobile ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
           className="tech-badge"
@@ -160,19 +161,19 @@ const Skills = () => {
           show: {
             opacity: 1,
             transition: {
-              staggerChildren: 0.15
+              staggerChildren: isMobile ? 0 : 0.15
             }
           }
         }}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: true, margin: isMobile ? "0px" : "-100px" }}
       >
         {skillCategories.slice(0, 3).map((category) => (
           <motion.div
             key={category.title}
             variants={{
-              hidden: { opacity: 0, y: 30, scale: 0.9 },
+              hidden: { opacity: isMobile ? 1 : 0, y: isMobile ? 0 : 30, scale: isMobile ? 1 : 0.9 },
               show: { 
                 opacity: 1, 
                 y: 0, 
@@ -181,7 +182,7 @@ const Skills = () => {
               }
             }}
           >
-            <SkillCard category={category} />
+            <SkillCard category={category} isMobile={isMobile} />
           </motion.div>
         ))}
       </motion.div>
@@ -189,12 +190,12 @@ const Skills = () => {
       <motion.div 
         className="soft-skills-container" 
         style={{ marginTop: '30px' }}
-        initial={{ opacity: 0, y: 30 }}
+        initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
+        transition={{ delay: isMobile ? 0 : 0.5, duration: 0.8, type: "spring" }}
       >
-        <SkillCard category={skillCategories[3]} horizontal={true} />
+        <SkillCard category={skillCategories[3]} horizontal={true} isMobile={isMobile} />
       </motion.div>
 
       <style>{`
