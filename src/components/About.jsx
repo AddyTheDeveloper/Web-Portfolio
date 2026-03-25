@@ -115,7 +115,7 @@ const About = () => {
                 position: 'relative'
               }}>
                 <img 
-                  src="/src/assets/profile/profile.png" 
+                  src="/profile/profile.png" 
                   alt="Aditya Hans" 
                   style={{ width: '100%', height: 'auto', display: 'block' }}
                   onError={(e) => {

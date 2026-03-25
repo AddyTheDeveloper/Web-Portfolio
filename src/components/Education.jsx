@@ -25,12 +25,42 @@ const Education = () => {
   ];
 
   const certificates = [
-    { title: "Cloud Computing (Elite)", issuer: "NPTEL – IIT Kharagpur", date: "Apr 2025" },
-    { title: "Master Generative AI & AI Tools", issuer: "Udemy", date: "Aug 2025" },
-    { title: "Computational Theory", issuer: "Infosys Springboard", date: "Aug 2025" },
-    { title: "Hardware & OS", issuer: "IBM – Coursera", date: "Sep 2024" },
-    { title: "Data Structures & Algorithms", issuer: "C++ Specialization", date: "Aug 2024" },
-    { title: "Object Oriented Programming", issuer: "Infosys Springboard", date: "Jul 2024" }
+    { 
+      title: "NPTEL – Cloud Computing (Elite)", 
+      issuer: "Achieved Elite certification with 78% score, demonstrating strong understanding of cloud models and services (Jan–Apr 2025).", 
+      image: "/certificates/c1.jpg",
+      icon: <Award size={20} />
+    },
+    { 
+      title: "Infosys – Generative AI & AI Tools", 
+      issuer: "Gained hands-on experience with modern AI tools including ChatGPT and generative AI workflows (Aug 2025).", 
+      image: "/certificates/c2.jpg",
+      icon: <Award size={20} />
+    },
+    { 
+      title: "Infosys – Computational Theory & Finite Automata", 
+      issuer: "Built core knowledge in automata theory, formal languages, and computation models (Aug 2025).", 
+      image: "/certificates/c3.jpg",
+      icon: <Award size={20} />
+    },
+    { 
+      title: "IBM – Introduction to Hardware and Operating Systems", 
+      issuer: "Completed foundational training in OS concepts, hardware interaction, and system architecture (Sep 2024).", 
+      image: "/certificates/c4.jpg",
+      icon: <Award size={20} />
+    },
+    { 
+      title: "LPU – Logic Building, Programming & Data Structures", 
+      issuer: "Earned Grade A while strengthening problem-solving and DSA fundamentals (Jun–Jul 2025).", 
+      image: "/certificates/c5.jpg",
+      icon: <Award size={20} />
+    },
+    { 
+      title: "University of Colorado – Network Communication Fundamentals", 
+      issuer: "Learned core networking concepts including protocols, communication models, and data transmission (Sep 2024).", 
+      image: "/certificates/c6.jpg",
+      icon: <Award size={20} />
+    }
   ];
 
   const [selectedCert, setSelectedCert] = useState(null);
@@ -142,21 +172,62 @@ const Education = () => {
             <motion.div 
               key={cert.title} 
               variants={itemVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              whileHover={{ y: -5, scale: 1.02 }}
+              whileHover={{ y: -10, scale: 1.02 }}
               className="glass"
-              style={{ padding: '20px', borderRadius: '20px', display: 'flex', alignItems: 'center', gap: '15px' }}
+              style={{ borderRadius: '24px', textAlign: 'center', cursor: 'pointer', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', height: '100%' }}
+              onClick={() => setSelectedCert(cert)}
             >
-              <div style={{ padding: '12px', background: 'var(--glass-bg)', borderRadius: '12px', color: 'var(--secondary)' }}>
-                <Award size={20} />
+              {/* Certificate Preview Thumbnail */}
+              <div style={{ width: '100%', height: '160px', overflow: 'hidden', position: 'relative', borderBottom: '1px solid var(--border-glass)' }}>
+                <img 
+                  src={cert.image} 
+                  alt={cert.title} 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.8)' }} 
+                />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--bg-dark) 0%, transparent 100%)', opacity: 0.4 }} />
+                
+                <div style={{ 
+                  position: 'absolute', 
+                  top: '10px', 
+                  right: '10px', 
+                  background: 'rgba(0,0,0,0.5)', 
+                  backdropFilter: 'blur(5px)',
+                  borderRadius: '50%', 
+                  width: '32px', 
+                  height: '32px', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  color: 'white',
+                  border: '1px solid rgba(255,255,255,0.1)'
+                }}>
+                  <Eye size={16} />
+                </div>
               </div>
-              <div style={{ flex: 1 }}>
-                <h4 style={{ fontSize: '15px', fontWeight: 700, marginBottom: '2px' }}>{cert.title}</h4>
-                <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{cert.issuer}</p>
-                <p style={{ fontSize: '11px', color: 'var(--primary)', fontWeight: 600, marginTop: '4px' }}>{cert.date}</p>
+
+              <div style={{ padding: '25px', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ 
+                  width: '50px', 
+                  height: '50px', 
+                  background: 'var(--primary-glow)', 
+                  borderRadius: '12px', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  color: 'var(--primary)',
+                  marginTop: '-50px',
+                  marginBottom: '15px',
+                  border: '1px solid var(--border-glass)',
+                  position: 'relative',
+                  boxShadow: '0 10px 20px rgba(0,0,0,0.2)'
+                }}>
+                  {cert.icon}
+                </div>
+                <h4 style={{ fontSize: '16px', fontWeight: 800, marginBottom: '8px' }}>{cert.title}</h4>
+                <p style={{ color: 'var(--text-muted)', fontSize: '13px', lineHeight: 1.6, marginBottom: '20px' }}>{cert.issuer}</p>
+                <div style={{ marginTop: 'auto', fontSize: '11px', fontWeight: 700, color: 'var(--primary)', letterSpacing: '1px', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Eye size={14} /> Full View
+                </div>
               </div>
             </motion.div>
           ))}

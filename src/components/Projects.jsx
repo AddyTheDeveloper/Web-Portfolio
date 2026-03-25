@@ -125,7 +125,7 @@ const Projects = () => {
                 position: 'relative'
               }}>
                 <img 
-                  src={`/src/assets/projects/${project.title.toLowerCase().replace(/ /g, '_')}.png`} 
+                  src={`/projects/${project.title.toLowerCase().replace(/ /g, '_')}.png`} 
                   alt={project.title} 
                   loading="lazy"
                   decoding="async"
