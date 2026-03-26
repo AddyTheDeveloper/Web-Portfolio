@@ -202,7 +202,7 @@ const Hero = ({ isMobile }) => {
             
             <motion.div animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 4 }} style={{ textAlign: 'center' }}>
               <Cpu size={24} className="gradient-text" style={{ marginBottom: '10px' }} />
-              <h3 className="gradient-text" style={{ fontSize: 'clamp(24px, 6vw, 32px)', fontWeight: 800 }}>500+</h3>
+              <h3 className="gradient-text" style={{ fontSize: 'clamp(24px, 6vw, 32px)', fontWeight: 800 }}>200+</h3>
               <p style={{ fontSize: '10px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '2px' }}>DSA Solved</p>
             </motion.div>
             
