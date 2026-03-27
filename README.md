@@ -1,16 +1,78 @@
-# React + Vite
+# Aditya Hans | Software Developer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<div align="center">
 
-Currently, two official plugins are available:
+  **Engineering scalable full-stack applications and solving complex algorithmic challenges with precision and creativity.**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+  [Live Demo](https://your-portfolio-url.vercel.app/) • [Download Resume](file:///c:/Users/Aditya_hans/Downloads/Web%20Portfolio/resume/Aditya_Resume.pdf) • [Contact Me](#contact)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+  ![Tech Stack](https://img.shields.io/badge/Tech%20Stack-MERN-blue?style=for-the-badge)
+  ![DSA](https://img.shields.io/badge/DSA-200%2B%20Solved-orange?style=for-the-badge)
+  ![Projects](https://img.shields.io/badge/Projects-10%2B-green?style=for-the-badge)
 
-## Expanding the ESLint configuration
+</div>
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 About Me
+
+I am a passionate software developer with a strong foundation in full-stack development and problem-solving. My journey in the tech world is driven by a curiosity to understand how complex systems work and a desire to build elegant solutions to real-world problems.
+
+With expertise in the **MERN (MongoDB, Express, React, Node.js)** stack and a deep understanding of **Data Structures and Algorithms**, I focus on writing clean, efficient, and scalable code.
+
+## 🛠️ Technology Stack
+
+- **Core**: JavaScript, React, Node.js, Express, MongoDB
+- **Styling**: Vanilla CSS, Framer Motion (Animations)
+- **Tools**: Vite, Lucide React (Icons), Git, ESLint
+- **Design Concepts**: Glassmorphism, Responsive Design, 3D Tilt Effects
+
+## 🌟 Key Achievements
+
+| Metric | Status |
+| :--- | :--- |
+| **DSA Problems** | 200+ Solved (LeetCode/GFG) |
+| **Core Projects** | 10+ Full-Stack & UI Applications |
+| **Specialization** | MERN Stack & Scalable Architectures |
+
+## 📦 Getting Started
+
+To run this portfolio locally, follow these steps:
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/web-portfolio.git
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Build for production:**
+   ```bash
+   npm run build
+   ```
+
+## 📂 Project Structure
+
+- `src/components`: UI components (Hero, About, Projects, etc.)
+- `public/`: Static assets (images, pdfs)
+- `src/assets/`: Styles and shared resources
+
+## 📫 Contact
+
+Feel free to reach out to me for collaborations or just a tech chat!
+
+- **Email**: [your.email@example.com]
+- **LinkedIn**: [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)
+- **GitHub**: [github.com/your-username](https://github.com/your-username)
+
+---
+
+<p align="center">Made with ❤️ by Aditya Hans</p>
