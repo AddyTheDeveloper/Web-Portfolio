@@ -8,7 +8,7 @@ const Education = ({ isMobile }) => {
       degree: "Bachelor of Technology",
       institution: "Lovely Professional University, Phagwara, Punjab",
       period: "Aug 2023 - Present",
-      stats: "CGPA: 7.18"
+      stats: "CGPA: 7.29"
     },
     {
       degree: "Intermediate (PCM)",
